@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const collegelistSchema= mongoose.Schema({
     college_name:String,
-    request:Number,
+    requested_by:Number,
    
 });
 
