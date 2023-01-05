@@ -16,8 +16,6 @@ const collegeInfoSchema = mongoose.Schema({
     medium_package: Number,
     top_recruiters: String,
     review_video_link: String,
-
-
 });
 
 module.exports = mongoose.model("collegeInfo", collegeInfoSchema);

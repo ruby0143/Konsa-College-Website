@@ -1,16 +1,21 @@
 const mongoose = require("mongoose");
-const colors = require("colors");
 
 const connectDB = async () => {
+    const user = process.env.MONGO_USER;
+    const pass = process.env.MONGO_PASS;
+    const mongoUrl = "mongodb+srv://"+ user+":"+pass+"@cluster0.uxghxpb.mongodb.net/prod";
   try {
-    const conn = await mongoose.connect(process.env.URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    mongoose.connect(mongoUrl, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
     });
-
-    console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline);
+    const connection = mongoose.connection;
+    connection.on('error', console.error.bind(console, 'connection error:'));
+    connection.once('open', async function () {
+        console.log("Connection Successful");
+    });
   } catch (error) {
-    console.log(`Error: ${error.message}`.red.bold);
+    console.log(`Error: ${error.message}`);
     process.exit();
   }
 };
